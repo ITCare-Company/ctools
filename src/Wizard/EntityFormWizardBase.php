@@ -57,6 +57,9 @@ abstract class EntityFormWizardBase extends FormWizardBase implements EntityForm
       'builder' => \Drupal::service('form_builder'),
       'class_resolver' => \Drupal::service('class_resolver'),
       'event_dispatcher' => \Drupal::service('event_dispatcher'),
+      // Keep the deprecated entity manager service as a parameter as well for
+      // BC, so that subclasses still work.
+      'entity_manager' => \Drupal::service('entity.manager'),
       'entity_type_manager' => \Drupal::service('entity_type.manager'),
     ];
   }
