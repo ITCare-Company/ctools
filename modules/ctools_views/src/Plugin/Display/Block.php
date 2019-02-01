@@ -157,7 +157,7 @@ class Block extends CoreBlock {
        if (!empty($allow_settings['sort_fields'])) {
           $form['override']['order_fields'][$field_name]['#attributes']['class'][] = 'draggable';
         }
-        $form['override']['order_fields'][$field_name]['#weight'] = !empty($block_configuration['fields'][$field_name]['weight']) ? $block_configuration['fields'][$field_name]['weight'] : '';
+        $form['override']['order_fields'][$field_name]['#weight'] = !empty($block_configuration['fields'][$field_name]['weight']) ? $block_configuration['fields'][$field_name]['weight'] : 0;
         if (!empty($allow_settings['hide_fields'])) {
           $form['override']['order_fields'][$field_name]['hide'] = [
             '#type' => 'checkbox',
