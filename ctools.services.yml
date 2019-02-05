@@ -11,7 +11,7 @@ services:
       - { name: route_enhancer }
   ctools.wizard.factory:
     class: Drupal\ctools\Wizard\WizardFactory
-    arguments: ['@form_builder', '@event_dispatcher']
+    arguments: ['@form_builder', '@event_dispatcher', '@renderer']
   ctools.paramconverter.tempstore:
     class: Drupal\ctools\ParamConverter\TempstoreConverter
     arguments: ['@user.shared_tempstore', '@entity_type.manager']
