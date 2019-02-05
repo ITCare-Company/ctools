@@ -16,6 +16,7 @@ use Drupal\Core\Plugin\Context\ContextInterface;
 use Drupal\Core\Url;
 use Drupal\user\SharedTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 abstract class ContextConfigure extends FormBase {
 
@@ -25,12 +26,19 @@ abstract class ContextConfigure extends FormBase {
   protected $tempstore;
 
   /**
+   * Object EntityTypeManager.
+   *
+   * @var Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * @var string
    */
   protected $tempstore_id;
 
   /**
-   * @var string;
+   * @var string
    */
   protected $machine_name;
 
@@ -38,11 +46,15 @@ abstract class ContextConfigure extends FormBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('user.shared_tempstore'));
+    return new static(
+      $container->get('user.shared_tempstore'),
+      $container->get('entity_type.manager')
+    );
   }
 
-  function __construct(SharedTempStoreFactory $tempstore) {
+  function __construct(SharedTempStoreFactory $tempstore, EntityTypeManagerInterface $entity_type_manager) {
     $this->tempstore = $tempstore;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -167,7 +179,7 @@ abstract class ContextConfigure extends FormBase {
     if (strpos($context_definition->getDataType(), 'entity:') === 0) {
       list(, $entity_type) = explode(':', $context_definition->getDataType());
       if (is_numeric($form_state->getValue('context_value'))) {
-        $value = \Drupal::entityTypeManager()->getStorage($entity_type)->load($form_state->getValue('context_value'));
+        $value = $this->entityTypeManager->getStorage($entity_type)->load($form_state->getValue('context_value'));
       }
     }
     // No loading required for non-entity values.
