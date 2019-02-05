@@ -103,11 +103,11 @@ abstract class EntityFormWizardBase extends FormWizardBase implements EntityForm
       '%label' => $entity->label(),
     ];
     if ($status === SAVED_UPDATED) {
-      drupal_set_message($this->t('The @entity-type %label has been updated.', $arguments));
+      $this->messenger()->addMessage($this->t('The @entity-type %label has been updated.', $arguments));
       $this->logger($entity->getEntityType()->getProvider())->notice('Updated @entity-type %label.', $arguments);
     }
     elseif ($status === SAVED_NEW) {
-      drupal_set_message($this->t('The @entity-type %label has been added.', $arguments));
+      $this->messenger()->addMessage($this->t('The @entity-type %label has been added.', $arguments));
       $this->logger($entity->getEntityType()->getProvider())->notice('Added @entity-type %label.', $arguments);
     }
 
