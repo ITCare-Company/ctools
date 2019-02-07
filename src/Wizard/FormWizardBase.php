@@ -393,7 +393,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
       $actions['submit']['#ajax'] = [
         'callback' => '::ajaxSubmit',
         'url' => Url::fromRoute($this->getRouteName(), $parameters),
-        'options' => ['query' => \Drupal::request()->query->all() + [FormBuilderInterface::AJAX_FORM_REQUEST => TRUE]],
+        'options' => ['query' => $this->getRequest()->query->all() + [FormBuilderInterface::AJAX_FORM_REQUEST => TRUE]],
       ];
     }
 
@@ -419,7 +419,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
         $actions['previous']['#ajax'] = [
           'callback' => '::ajaxPrevious',
           'url' => Url::fromRoute($this->getRouteName(), $parameters),
-          'options' => ['query' => \Drupal::request()->query->all() + [FormBuilderInterface::AJAX_FORM_REQUEST => TRUE]],
+          'options' => ['query' => $this->getRequest()->query->all() + [FormBuilderInterface::AJAX_FORM_REQUEST => TRUE]],
         ];
       }
     }
