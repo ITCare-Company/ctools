@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\ctools\Event\WizardEvent;
-use Drupal\user\SharedTempStoreFactory;
+use Drupal\Core\TempStore\SharedTempStoreFactory;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -24,7 +24,7 @@ abstract class EntityFormWizardBase extends FormWizardBase implements EntityForm
   protected $entityTypeManager;
 
   /**
-   * @param \Drupal\user\SharedTempStoreFactory $tempstore
+   * @param \Drupal\Core\TempStore\SharedTempStoreFactory $tempstore
    *   Tempstore Factory for keeping track of values in each step of the
    *   wizard.
    * @param \Drupal\Core\Form\FormBuilderInterface $builder
@@ -52,7 +52,7 @@ abstract class EntityFormWizardBase extends FormWizardBase implements EntityForm
    */
   public static function getParameters() {
     return [
-      'tempstore' => \Drupal::service('user.shared_tempstore'),
+      'tempstore' => \Drupal::service('tempstore.shared'),
       'builder' => \Drupal::service('form_builder'),
       'class_resolver' => \Drupal::service('class_resolver'),
       'event_dispatcher' => \Drupal::service('event_dispatcher'),
