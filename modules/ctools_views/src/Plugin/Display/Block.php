@@ -52,10 +52,14 @@ class Block extends CoreBlock {
     $options['configure_sorts'] = $this->t('Configure sorts');
     $form['allow']['#options'] = $options;
     // Update the items_per_page if set.
-    $defaults = array_filter($form['allow']['#default_value']);
-    if (isset($defaults['items_per_page'])) {
-      $defaults['items_per_page'] = 'items_per_page';
+    $defaults = [];
+    if (!empty($form['allow']['#default_value'])) {
+      $defaults = array_filter($form['allow']['#default_value']);
+      if (!empty($defaults['items_per_page'])) {
+        $defaults['items_per_page'] = 'items_per_page';
+      }
     }
+
     $form['allow']['#default_value'] = $defaults;
   }
 
