@@ -10,6 +10,7 @@ use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\TypedData\TypedDataManagerInterface;
 use Drupal\Core\Url;
+use Drupal\ctools\TypedDataResolver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class ManageContext extends FormBase {
@@ -36,6 +37,13 @@ abstract class ManageContext extends FormBase {
   protected $formBuilder;
 
   /**
+   * The typed data resolver.
+   *
+   * @var \Drupal\ctools\TypedDataResolver
+   */
+  protected $typedDataResolver;
+
+  /**
    * An array of property types that are eligible as relationships.
    *
    * @var array
@@ -50,25 +58,31 @@ abstract class ManageContext extends FormBase {
   protected $relationships = TRUE;
 
   /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static($container->get('typed_data_manager'), $container->get('form_builder'));
-  }
-
-  /**
    * ManageContext constructor.
    *
    * @param \Drupal\Core\TypedData\TypedDataManagerInterface $typed_data_manager
    *   The typed data manager.
    * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
    *   The form builder.
+   * @param \Drupal\ctools\TypedDataResolver $ctools_typed_data_resolver
+   *   The typed data resolver.
    */
-  public function __construct(TypedDataManagerInterface $typed_data_manager, FormBuilderInterface $form_builder) {
+  public function __construct(TypedDataManagerInterface $typed_data_manager, FormBuilderInterface $form_builder, TypedDataResolver $ctools_typed_data_resolver) {
     $this->typedDataManager = $typed_data_manager;
     $this->formBuilder = $form_builder;
+    $this->typedDataResolver = $ctools_typed_data_resolver;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('typed_data_manager'),
+      $container->get('form_builder'),
+      $container->get('ctools.typed_data.resolver')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -194,7 +208,7 @@ abstract class ManageContext extends FormBase {
 
   protected function getAvailableRelationships($cached_values) {
     /** @var \Drupal\ctools\TypedDataResolver $resolver */
-    $resolver = \Drupal::service('ctools.typed_data.resolver');
+    $resolver = $this->typedDataResolver;
     return $resolver->getTokensForContexts($this->getContexts($cached_values));
   }
 
