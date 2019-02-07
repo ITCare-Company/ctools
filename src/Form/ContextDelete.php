@@ -2,7 +2,6 @@
 
 namespace Drupal\ctools\Form;
 
-
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\user\SharedTempStoreFactory;

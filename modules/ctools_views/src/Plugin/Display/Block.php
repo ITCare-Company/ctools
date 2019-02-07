@@ -2,11 +2,9 @@
 
 namespace Drupal\ctools_views\Plugin\Display;
 
-use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\Block\ViewsBlock;
 use Drupal\views\Plugin\views\display\Block as CoreBlock;
-use Drupal\views\Plugin\views\filter\InOperator;
 
 /**
  * Provides a Block display plugin that allows for greater control over Views

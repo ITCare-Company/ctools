@@ -2,7 +2,6 @@
 
 namespace Drupal\ctools;
 
-
 use Drupal\Core\Plugin\Context\Context;
 use Drupal\Core\Plugin\Context\ContextDefinition;
 use Drupal\Core\Plugin\Context\ContextInterface;

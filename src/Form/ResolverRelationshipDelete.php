@@ -2,7 +2,6 @@
 
 namespace Drupal\ctools\Form;
 
-
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\ConfirmFormHelper;
 use Drupal\Core\Form\FormStateInterface;

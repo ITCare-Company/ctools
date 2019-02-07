@@ -2,7 +2,6 @@
 
 namespace Drupal\ctools\Access;
 
-
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Routing\Access\AccessInterface as CoreAccessInterface;
 use Drupal\Core\Routing\RouteMatch;

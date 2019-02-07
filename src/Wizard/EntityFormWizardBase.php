@@ -2,7 +2,6 @@
 
 namespace Drupal\ctools\Wizard;
 
-
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;

@@ -3,7 +3,6 @@
 namespace Drupal\ctools\ParamConverter;
 
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\ParamConverter\ParamConverterInterface;
 use Drupal\user\SharedTempStoreFactory;

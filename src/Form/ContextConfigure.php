@@ -2,11 +2,9 @@
 
 namespace Drupal\ctools\Form;
 
-
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseModalDialogCommand;
 use Drupal\Core\Ajax\RedirectCommand;
-use Drupal\Core\Entity\Entity;
 use Drupal\Core\Entity\Plugin\DataType\EntityAdapter;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;

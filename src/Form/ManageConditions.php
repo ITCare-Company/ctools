@@ -2,7 +2,6 @@
 
 namespace Drupal\ctools\Form;
 
-
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Ajax\AjaxResponse;

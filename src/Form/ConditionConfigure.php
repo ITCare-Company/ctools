@@ -2,7 +2,6 @@
 
 namespace Drupal\ctools\Form;
 
-
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Component\Uuid\Uuid;
 use Drupal\Core\Ajax\AjaxResponse;
