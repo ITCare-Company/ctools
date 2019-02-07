@@ -160,7 +160,14 @@ abstract class ManageContext extends FormBase {
     $content['#attached']['library'][] = 'core/drupal.dialog.ajax';
     $cached_values = $form_state->getTemporaryValue('wizard');
     list(, $route_parameters) = $this->getContextOperationsRouteInfo($cached_values, $this->machine_name, $context);
-    $content['submit']['#attached']['drupalSettings']['ajax'][$content['submit']['#id']]['url'] = $this->url($this->getContextAddRoute($cached_values), $route_parameters, ['query' => [FormBuilderInterface::AJAX_FORM_REQUEST => TRUE]]);
+    $route_name = $this->getContextAddRoute($cached_values);
+    $route_options = [
+      'query' => [
+        FormBuilderInterface::AJAX_FORM_REQUEST => TRUE,
+      ],
+    ];
+    $url = Url::fromRoute($route_name, $route_parameters, $route_options);
+    $content['submit']['#attached']['drupalSettings']['ajax'][$content['submit']['#id']]['url'] = $url;
     $response = new AjaxResponse();
     $response->addCommand(new OpenModalDialogCommand($this->t('Add new context'), $content, array('width' => '700')));
     return $response;
@@ -172,7 +179,14 @@ abstract class ManageContext extends FormBase {
     $content['#attached']['library'][] = 'core/drupal.dialog.ajax';
     $cached_values = $form_state->getTemporaryValue('wizard');
     list(, $route_parameters) = $this->getRelationshipOperationsRouteInfo($cached_values, $this->machine_name, $relationship);
-    $content['submit']['#attached']['drupalSettings']['ajax'][$content['submit']['#id']]['url'] = $this->url($this->getRelationshipAddRoute($cached_values), $route_parameters, ['query' => [FormBuilderInterface::AJAX_FORM_REQUEST => TRUE]]);
+    $route_name = $this->getRelationshipAddRoute($cached_values);
+    $route_options = [
+      'query' => [
+        FormBuilderInterface::AJAX_FORM_REQUEST => TRUE,
+      ],
+    ];
+    $url = Url::fromRoute($route_name, $route_parameters, $route_options);
+    $content['submit']['#attached']['drupalSettings']['ajax'][$content['submit']['#id']]['url'] = $url;
     $response = new AjaxResponse();
     $response->addCommand(new OpenModalDialogCommand($this->t('Configure Relationship'), $content, array('width' => '700')));
     return $response;

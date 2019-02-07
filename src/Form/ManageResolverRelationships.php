@@ -84,7 +84,14 @@ abstract class ManageResolverRelationships extends FormBase {
     $content['#attached']['library'][] = 'core/drupal.dialog.ajax';
     $cached_values = $form_state->getTemporaryValue('wizard');
     list(, $route_parameters) = $this->getRelationshipOperationsRouteInfo($cached_values, $this->machine_name, $relationship);
-    $content['submit']['#attached']['drupalSettings']['ajax'][$content['submit']['#id']]['url'] = $this->url($this->getAddRoute($cached_values), $route_parameters, ['query' => [FormBuilderInterface::AJAX_FORM_REQUEST => TRUE]]);
+    $route_name = $this->getAddRoute($cached_values);
+    $route_options = [
+      'query' => [
+        FormBuilderInterface::AJAX_FORM_REQUEST => TRUE,
+      ],
+    ];
+    $url = Url::fromRoute($route_name, $route_parameters, $route_options);
+    $content['submit']['#attached']['drupalSettings']['ajax'][$content['submit']['#id']]['url'] = $url;
     $response = new AjaxResponse();
     $response->addCommand(new OpenModalDialogCommand($this->t('Configure Relationship'), $content, array('width' => '700')));
     return $response;

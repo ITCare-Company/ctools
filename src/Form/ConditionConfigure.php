@@ -13,6 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContextAwarePluginInterface;
 use Drupal\ctools\ConstraintConditionInterface;
 use Drupal\user\SharedTempStoreFactory;
+use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -132,7 +133,8 @@ abstract class ConditionConfigure extends FormBase {
     $response = new AjaxResponse();
     $cached_values = $this->tempstore->get($this->tempstore_id)->get($this->machine_name);
     list($route_name, $route_parameters) = $this->getParentRouteInfo($cached_values);
-    $response->addCommand(new RedirectCommand($this->url($route_name, $route_parameters)));
+    $url = Url::fromRoute($route_name, $route_parameters);
+    $response->addCommand(new RedirectCommand($url));
     $response->addCommand(new CloseModalDialogCommand());
     return $response;
   }
