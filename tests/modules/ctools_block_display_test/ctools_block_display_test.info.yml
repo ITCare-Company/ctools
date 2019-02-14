@@ -5,4 +5,4 @@ package: Testing
 version: 3.x
 core: 8.x
 dependencies:
-  - ctools
+  - ctools:ctools
