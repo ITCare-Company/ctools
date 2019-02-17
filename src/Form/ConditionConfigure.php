@@ -44,7 +44,7 @@ abstract class ConditionConfigure extends FormBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('user.shared_tempstore'), $container->get('plugin.manager.condition'));
+    return new static($container->get('tempstore.shared'), $container->get('plugin.manager.condition'));
   }
 
   function __construct(SharedTempStoreFactory $tempstore, PluginManagerInterface $manager) {
