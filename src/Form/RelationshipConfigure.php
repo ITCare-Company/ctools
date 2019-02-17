@@ -113,7 +113,7 @@ abstract class RelationshipConfigure extends FormBase {
     list($route_name, $route_parameters) = $this->getParentRouteInfo($cached_values);
     $response = new AjaxResponse();
     $url = Url::fromRoute($route_name, $route_parameters);
-    $response->addCommand(new RedirectCommand($url));
+    $response->addCommand(new RedirectCommand($url->toString()));
     $response->addCommand(new CloseModalDialogCommand());
     return $response;
   }

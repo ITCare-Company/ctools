@@ -133,7 +133,7 @@ abstract class ConditionConfigure extends FormBase {
     $cached_values = $this->tempstore->get($this->tempstore_id)->get($this->machine_name);
     list($route_name, $route_parameters) = $this->getParentRouteInfo($cached_values);
     $url = Url::fromRoute($route_name, $route_parameters);
-    $response->addCommand(new RedirectCommand($url));
+    $response->addCommand(new RedirectCommand($url->toString()));
     $response->addCommand(new CloseModalDialogCommand());
     return $response;
   }
