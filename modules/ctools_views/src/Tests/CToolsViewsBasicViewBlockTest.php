@@ -2,7 +2,7 @@
 
 namespace Drupal\ctools_views\Tests;
 
-use Drupal\views_ui\Tests\UITestBase;
+use Drupal\Tests\views_ui\Functional\UITestBase;
 use Drupal\views\Tests\ViewTestData;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
@@ -65,9 +65,9 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     // Assert items per page default settings.
     $this->drupalGet('<front>');
     $result = $this->xpath('//div[contains(@class, "region-sidebar-first")]/div[contains(@class, "block-views")]/h2');
-    $this->assertEqual((string) $result[0], 'CTools Views Pager Block');
+    $this->assertEquals('CTools Views Pager Block', $result[0]->getText());
     $this->assertRaw('Showing 3 records on page 1');
-    $this->assertEqual(3, count($this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table/tbody/tr')));
+    $this->assertEquals(3, count($this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table/tbody/tr')));
 
     // Override items per page settings.
     $edit = [];
@@ -77,15 +77,19 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     $block = $this->storage->load('views_block__ctools_views_test_view_block_pager');
     $config = $block->getPlugin()->getConfiguration();
-    $this->assertEqual(2, $config['items_per_page'], "'Items per page' is properly saved.");
+    $this->assertEquals(2, $config['items_per_page'], "'Items per page' is properly saved.");
 
     // Assert items per page overridden settings.
     $this->drupalGet('<front>');
     $result = $this->xpath('//div[contains(@class, "region-sidebar-first")]/div[contains(@class, "block-views")]/h2');
-    $this->assertEqual((string) $result[0], 'CTools Views Pager Block');
+    $this->assertEquals('CTools Views Pager Block', $result[0]->getText());
     $this->assertRaw('Showing 2 records on page 1');
-    $this->assertEqual(2, count($this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table/tbody/tr')));
-    $this->assertEqual([1, 2], $this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table//tr//td[contains(@class, "views-field-id")]'));
+    $this->assertEquals(2, count($this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table/tbody/tr')));
+    $elements = $this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table//tr//td[contains(@class, "views-field-id")]');
+    $results = array_map(function ($element) {
+      return $element->getText();
+    }, $elements);
+    $this->assertEquals([1, 2], $results);
   }
 
   /**
@@ -105,7 +109,11 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     // Assert pager offset default settings.
     $this->drupalGet('<front>');
-    $this->assertEqual([1, 2, 3], $this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table//tr//td[contains(@class, "views-field-id")]'));
+    $elements = $this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table//tr//td[contains(@class, "views-field-id")]');
+    $results = array_map(function ($element) {
+      return $element->getText();
+    }, $elements);
+    $this->assertEquals([1, 2, 3], $results);
 
     // Override pager offset settings.
     $edit = [];
@@ -116,11 +124,15 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     $block = $this->storage->load('views_block__ctools_views_test_view_block_pager');
     $config = $block->getPlugin()->getConfiguration();
-    $this->assertEqual(1, $config['pager_offset'], "'Pager offset' is properly saved.");
+    $this->assertEquals(1, $config['pager_offset'], "'Pager offset' is properly saved.");
 
     // Assert pager offset overridden settings.
     $this->drupalGet('<front>');
-    $this->assertEqual([2, 3, 4], $this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table//tr//td[contains(@class, "views-field-id")]'));
+    $elements = $this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table//tr//td[contains(@class, "views-field-id")]');
+    $results = array_map(function ($element) {
+      return $element->getText();
+    }, $elements);
+    $this->assertEquals([2, 3, 4], $results);
   }
 
   /**
@@ -131,9 +143,9 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     // Get the "Configure block" form for our Views block.
     $this->drupalGet('admin/structure/block/add/views_block:ctools_views_test_view-block_pager/' . $default_theme);
-    $this->assertFieldById('edit-settings-override-pager-view', 'view');
-    $this->assertFieldById('edit-settings-override-pager-some');
-    $this->assertFieldById('edit-settings-override-pager-none');
+    $this->assertSession()->fieldValueEquals('edit-settings-override-pager-view', 'view');
+    $this->assertSession()->fieldExists('edit-settings-override-pager-some');
+    $this->assertSession()->fieldExists('edit-settings-override-pager-none');
 
     // Add block to sidebar_first region with default settings.
     $edit = [];
@@ -155,11 +167,11 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     $block = $this->storage->load('views_block__ctools_views_test_view_block_pager');
     $config = $block->getPlugin()->getConfiguration();
-    $this->assertEqual('some', $config['pager'], "'Pager' setting is properly saved.");
+    $this->assertEquals('some', $config['pager'], "'Pager' setting is properly saved.");
 
     // Assert pager overridden settings to 'some', showing no pager.
     $this->drupalGet('<front>');
-    $this->assertEqual(3, count($this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table/tbody/tr')));
+    $this->assertEquals(3, count($this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table/tbody/tr')));
     $this->assertNoText('Page 1');
     $this->assertNoText('Next ›');
 
@@ -172,11 +184,11 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     $block = $this->storage->load('views_block__ctools_views_test_view_block_pager');
     $config = $block->getPlugin()->getConfiguration();
-    $this->assertEqual('none', $config['pager'], "'Pager' setting is properly saved.");
+    $this->assertEquals('none', $config['pager'], "'Pager' setting is properly saved.");
 
     // Assert pager overridden settings to 'some', showing no pager.
     $this->drupalGet('<front>');
-    $this->assertEqual(5, count($this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table/tbody/tr')));
+    $this->assertEquals(5, count($this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table/tbody/tr')));
     $this->assertNoText('Page 1');
     $this->assertNoText('Next ›');
   }
@@ -189,7 +201,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     // Get the "Configure block" form for our Views block.
     $this->drupalGet('admin/structure/block/add/views_block:ctools_views_test_view-block_fields/' . $default_theme);
-    $this->assertFieldById('edit-settings-override-order-fields-id-hide');
+    $this->assertSession()->fieldExists('edit-settings-override-order-fields-id-hide');
 
     // Add block to sidebar_first region with default settings.
     $edit = [];
@@ -198,7 +210,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     // Assert hide_fields default settings.
     $this->drupalGet('<front>');
-    $this->assertEqual(5, count($this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//td[contains(@class, "views-field-id")]')));
+    $this->assertEquals(5, count($this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//td[contains(@class, "views-field-id")]')));
 
     // Override hide_fields settings.
     $edit = [];
@@ -208,12 +220,12 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     $block = $this->storage->load('views_block__ctools_views_test_view_block_fields');
     $config = $block->getPlugin()->getConfiguration();
-    $this->assertEqual(1, $config['fields']['id']['hide'], "'hide_fields' setting is properly saved.");
-    $this->assertEqual(0, $config['fields']['name']['hide'], "'hide_fields' setting is properly saved.");
+    $this->assertEquals(1, $config['fields']['id']['hide'], "'hide_fields' setting is properly saved.");
+    $this->assertEquals(0, $config['fields']['name']['hide'], "'hide_fields' setting is properly saved.");
 
     // Assert hide_fields overridden settings.
     $this->drupalGet('<front>');
-    $this->assertEqual(0, count($this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//td[contains(@class, "views-field-id")]')));
+    $this->assertEquals(0, count($this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//td[contains(@class, "views-field-id")]')));
   }
 
   /**
@@ -224,7 +236,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     // Get the "Configure block" form for our Views block.
     $this->drupalGet('admin/structure/block/add/views_block:ctools_views_test_view-block_fields/' . $default_theme);
-    $this->assertFieldById('edit-settings-override-order-fields-id-weight', 0);
+    $this->assertSession()->fieldValueEquals('edit-settings-override-order-fields-id-weight', 0);
 
     // Add block to sidebar_first region with default settings.
     $edit = [];
@@ -261,11 +273,11 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->assertEqual(4, count($this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]//td[contains(@class, "views-field-id")]/preceding-sibling::td')));
 
     // Check that duplicate fields in the View produce expected output.
-    $name1_element = $this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]/td[contains(@class, "views-field-name")]/text()');
-    $name1 = (string) $name1_element[0];
+    $name1_element = $this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]/td[contains(@class, "views-field-name")]');
+    $name1 = $name1_element[0]->getText();
     $this->assertEqual('John', trim($name1));
-    $name2_element = $this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]/td[contains(@class, "views-field-name-1")]/text()');
-    $name2 = (string) $name2_element[0];
+    $name2_element = $this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]/td[contains(@class, "views-field-name-1")]');
+    $name2 = $name2_element[0]->getText();
     $this->assertEqual('John', trim($name2));
   }
 
@@ -277,8 +289,8 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     // Get the "Configure block" form for our Views block.
     $this->drupalGet('admin/structure/block/add/views_block:ctools_views_test_view-block_filter/' . $default_theme);
-    $this->assertFieldById('edit-settings-override-filters-status-disable');
-    $this->assertFieldById('edit-settings-override-filters-job-disable');
+    $this->assertSession()->fieldExists('edit-settings-override-filters-status-disable');
+    $this->assertSession()->fieldExists('edit-settings-override-filters-job-disable');
 
     // Add block to sidebar_first region with default settings.
     $edit = [];
@@ -300,8 +312,8 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     $block = $this->storage->load('views_block__ctools_views_test_view_block_filter');
     $config = $block->getPlugin()->getConfiguration();
-    $this->assertEqual(1, $config['filter']['status']['disable'], "'disable_filters' setting is properly saved.");
-    $this->assertEqual(1, $config['filter']['job']['disable'], "'disable_filters' setting is properly saved.");
+    $this->assertEquals(1, $config['filter']['status']['disable'], "'disable_filters' setting is properly saved.");
+    $this->assertEquals(1, $config['filter']['job']['disable'], "'disable_filters' setting is properly saved.");
 
     // Assert disable_filters overridden settings.
     $this->drupalGet('<front>');
@@ -327,8 +339,8 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     // Assert configure_sorts default settings.
     $this->drupalGet('<front>');
     // Check that the results are sorted ASC.
-    $element = $this->xpath('//div[contains(@class, "view-display-id-block_sort")]//table//tr[1]/td[1]/text()');
-    $value = (string) $element[0];
+    $element = $this->xpath('//div[contains(@class, "view-display-id-block_sort")]//table//tr[1]/td[1]');
+    $value = $element[0]->getText();
     $this->assertEqual('1', trim($value));
 
     // Override configure_sorts settings.
@@ -344,8 +356,8 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     // Assert configure_sorts overridden settings.
     // Check that the results are sorted DESC.
     $this->drupalGet('<front>');
-    $element = $this->xpath('//div[contains(@class, "view-display-id-block_sort")]//table//tr[1]/td[1]/text()');
-    $value = (string) $element[0];
+    $element = $this->xpath('//div[contains(@class, "view-display-id-block_sort")]//table//tr[1]/td[1]');
+    $value = $element[0]->getText();
     $this->assertEqual('5', trim($value));
   }
 
