@@ -7,8 +7,7 @@ use Drupal\views\Tests\ViewTestData;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
- * Tests the ctools_views block display plugin
- * overriding settings from a basic View.
+ * Tests ctools_views block display plugin overrides settings from a basic View.
  *
  * @group ctools_views
  * @see \Drupal\ctools_views\Plugin\Display\Block
@@ -22,14 +21,14 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
    *
    * @var array
    */
-  public static $modules = array('ctools_views', 'ctools_views_test_views');
+  public static $modules = ['ctools_views', 'ctools_views_test_views'];
 
   /**
    * Views used by this test.
    *
    * @var array
    */
-  public static $testViews = array('ctools_views_test_view');
+  public static $testViews = ['ctools_views_test_view'];
 
   /**
    * The block storage.
@@ -39,12 +38,12 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
   protected $storage;
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   protected function setUp($import_test_views = TRUE) {
     parent::setUp($import_test_views);
 
-    ViewTestData::createTestViews(get_class($this), array('ctools_views_test_views'));
+    ViewTestData::createTestViews(get_class($this), ['ctools_views_test_views']);
     $this->storage = $this->container->get('entity_type.manager')->getStorage('block');
   }
 
@@ -58,7 +57,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->drupalGet('admin/structure/block/add/views_block:ctools_views_test_view-block_pager/' . $default_theme);
     $this->assertFieldByXPath('//input[@type="number" and @name="settings[override][items_per_page]"]', NULL, 'items_per_page setting is a number field');
     // Add block to sidebar_first region with default settings.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $edit['settings[override][items_per_page]'] = 0;
     $this->drupalPostForm('admin/structure/block/add/views_block:ctools_views_test_view-block_pager/' . $default_theme, $edit, $this->t('Save block'));
@@ -71,7 +70,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->assertEqual(3, count($this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table/tbody/tr')));
 
     // Override items per page settings.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $edit['settings[override][items_per_page]'] = 2;
     $this->drupalPostForm('admin/structure/block/manage/views_block__ctools_views_test_view_block_pager', $edit, $this->t('Save block'));
@@ -99,7 +98,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->drupalGet('admin/structure/block/add/views_block:ctools_views_test_view-block_pager/' . $default_theme);
     $this->assertFieldByXPath('//input[@type="number" and @name="settings[override][pager_offset]"]', NULL, 'items_per_page setting is a number field');
     // Add block to sidebar_first region with default settings.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $edit['settings[override][items_per_page]'] = 0;
     $this->drupalPostForm('admin/structure/block/add/views_block:ctools_views_test_view-block_pager/' . $default_theme, $edit, $this->t('Save block'));
@@ -109,7 +108,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->assertEqual([1, 2, 3], $this->xpath('//div[contains(@class, "view-display-id-block_pager")]//table//tr//td[contains(@class, "views-field-id")]'));
 
     // Override pager offset settings.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $edit['settings[override][items_per_page]'] = 0;
     $edit['settings[override][pager_offset]'] = 1;
@@ -137,7 +136,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->assertFieldById('edit-settings-override-pager-none');
 
     // Add block to sidebar_first region with default settings.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $edit['settings[override][items_per_page]'] = 0;
     $this->drupalPostForm('admin/structure/block/add/views_block:ctools_views_test_view-block_pager/' . $default_theme, $edit, $this->t('Save block'));
@@ -148,7 +147,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->assertText('Next ›');
 
     // Override pager settings to 'some'.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $edit['settings[override][items_per_page]'] = 0;
     $edit['settings[override][pager]'] = 'some';
@@ -165,7 +164,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->assertNoText('Next ›');
 
     // Override pager settings to 'none'.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $edit['settings[override][items_per_page]'] = 0;
     $edit['settings[override][pager]'] = 'none';
@@ -193,7 +192,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->assertFieldById('edit-settings-override-order-fields-id-hide');
 
     // Add block to sidebar_first region with default settings.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $this->drupalPostForm('admin/structure/block/add/views_block:ctools_views_test_view-block_fields/' . $default_theme, $edit, $this->t('Save block'));
 
@@ -202,7 +201,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->assertEqual(5, count($this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//td[contains(@class, "views-field-id")]')));
 
     // Override hide_fields settings.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $edit['settings[override][order_fields][id][hide]'] = 1;
     $this->drupalPostForm('admin/structure/block/manage/views_block__ctools_views_test_view_block_fields', $edit, $this->t('Save block'));
@@ -228,17 +227,18 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->assertFieldById('edit-settings-override-order-fields-id-weight', 0);
 
     // Add block to sidebar_first region with default settings.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $this->drupalPostForm('admin/structure/block/add/views_block:ctools_views_test_view-block_fields/' . $default_theme, $edit, $this->t('Save block'));
 
     // Assert sort_fields default settings.
     $this->drupalGet('<front>');
-    // Check that the td with class "views-field-id" is the first td in the first tr element.
-    $this->assertEqual(0, count($this->xpath('count(//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]//td[contains(@class, "views-field-id")]/preceding-sibling::td)')));
+    // Check that the td with class "views-field-id" is the first td in the
+    // first tr element.
+    $this->assertEqual(0, count($this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]//td[contains(@class, "views-field-id")]/preceding-sibling::td')));
 
     // Override sort_fields settings.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $edit['settings[override][order_fields][name][weight]'] = -50;
     $edit['settings[override][order_fields][age][weight]'] = -49;
@@ -256,16 +256,17 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     // Assert sort_fields overridden settings.
     $this->drupalGet('<front>');
 
-    // Check that the td with class "views-field-id" is the 5th td in the first tr element.
+    // Check that the td with class "views-field-id" is the 5th td in the first
+    // tr element.
     $this->assertEqual(4, count($this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]//td[contains(@class, "views-field-id")]/preceding-sibling::td')));
 
-    // Check that duplicate fields in the View produce expected outpu
+    // Check that duplicate fields in the View produce expected output.
     $name1_element = $this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]/td[contains(@class, "views-field-name")]/text()');
     $name1 = (string) $name1_element[0];
-    $this->assertEqual("John", trim($name1));
+    $this->assertEqual('John', trim($name1));
     $name2_element = $this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]/td[contains(@class, "views-field-name-1")]/text()');
     $name2 = (string) $name2_element[0];
-    $this->assertEqual("John", trim($name2));
+    $this->assertEqual('John', trim($name2));
   }
 
   /**
@@ -280,18 +281,18 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->assertFieldById('edit-settings-override-filters-job-disable');
 
     // Add block to sidebar_first region with default settings.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $this->drupalPostForm('admin/structure/block/add/views_block:ctools_views_test_view-block_filter/' . $default_theme, $edit, $this->t('Save block'));
 
     // Assert disable_filters default settings.
     $this->drupalGet('<front>');
-    // Check that the default settings show both filters
+    // Check that the default settings show both filters.
     $this->assertFieldByXPath('//select[@name="status"]');
     $this->assertFieldByXPath('//input[@name="job"]');
 
     // Override disable_filters settings.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $edit['settings[override][filters][status][disable]'] = 1;
     $edit['settings[override][filters][job][disable]'] = 1;
@@ -319,32 +320,33 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->assertFieldByXPath('//input[@name="settings[override][sort][id][order]"]');
 
     // Add block to sidebar_first region with default settings.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
     $this->drupalPostForm('admin/structure/block/add/views_block:ctools_views_test_view-block_sort/' . $default_theme, $edit, $this->t('Save block'));
 
     // Assert configure_sorts default settings.
     $this->drupalGet('<front>');
-    // Check that the results are sorted ASC
+    // Check that the results are sorted ASC.
     $element = $this->xpath('//div[contains(@class, "view-display-id-block_sort")]//table//tr[1]/td[1]/text()');
     $value = (string) $element[0];
-    $this->assertEqual("1", trim($value));
+    $this->assertEqual('1', trim($value));
 
     // Override configure_sorts settings.
-    $edit = array();
+    $edit = [];
     $edit['region'] = 'sidebar_first';
-    $edit['settings[override][sort][id][order]'] = "DESC";
+    $edit['settings[override][sort][id][order]'] = 'DESC';
     $this->drupalPostForm('admin/structure/block/manage/views_block__ctools_views_test_view_block_sort', $edit, $this->t('Save block'));
 
     $block = $this->storage->load('views_block__ctools_views_test_view_block_sort');
     $config = $block->getPlugin()->getConfiguration();
-    $this->assertEqual("DESC", $config['sort']['id'], "'configure_sorts' setting is properly saved.");
+    $this->assertEqual('DESC', $config['sort']['id'], "'configure_sorts' setting is properly saved.");
 
     // Assert configure_sorts overridden settings.
-    // Check that the results are sorted DESC
+    // Check that the results are sorted DESC.
     $this->drupalGet('<front>');
     $element = $this->xpath('//div[contains(@class, "view-display-id-block_sort")]//table//tr[1]/td[1]/text()');
     $value = (string) $element[0];
-    $this->assertEqual("5", trim($value));
+    $this->assertEqual('5', trim($value));
   }
+
 }
