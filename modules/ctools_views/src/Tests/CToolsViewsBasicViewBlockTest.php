@@ -247,7 +247,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     $this->drupalGet('<front>');
     // Check that the td with class "views-field-id" is the first td in the
     // first tr element.
-    $this->assertEqual(0, count($this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]//td[contains(@class, "views-field-id")]/preceding-sibling::td')));
+    $this->assertEquals(0, count($this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]//td[contains(@class, "views-field-id")]/preceding-sibling::td')));
 
     // Override sort_fields settings.
     $edit = [];
@@ -262,23 +262,23 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     $block = $this->storage->load('views_block__ctools_views_test_view_block_fields');
     $config = $block->getPlugin()->getConfiguration();
-    $this->assertEqual(-46, $config['fields']['id']['weight'], "'sort_fields' setting is properly saved.");
-    $this->assertEqual(-50, $config['fields']['name']['weight'], "'sort_fields' setting is properly saved.");
+    $this->assertEquals(-46, $config['fields']['id']['weight'], "'sort_fields' setting is properly saved.");
+    $this->assertEquals(-50, $config['fields']['name']['weight'], "'sort_fields' setting is properly saved.");
 
     // Assert sort_fields overridden settings.
     $this->drupalGet('<front>');
 
     // Check that the td with class "views-field-id" is the 5th td in the first
     // tr element.
-    $this->assertEqual(4, count($this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]//td[contains(@class, "views-field-id")]/preceding-sibling::td')));
+    $this->assertEquals(4, count($this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]//td[contains(@class, "views-field-id")]/preceding-sibling::td')));
 
     // Check that duplicate fields in the View produce expected output.
     $name1_element = $this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]/td[contains(@class, "views-field-name")]');
     $name1 = $name1_element[0]->getText();
-    $this->assertEqual('John', trim($name1));
+    $this->assertEquals('John', trim($name1));
     $name2_element = $this->xpath('//div[contains(@class, "view-display-id-block_fields")]//table//tr[1]/td[contains(@class, "views-field-name-1")]');
     $name2 = $name2_element[0]->getText();
-    $this->assertEqual('John', trim($name2));
+    $this->assertEquals('John', trim($name2));
   }
 
   /**
@@ -341,7 +341,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
     // Check that the results are sorted ASC.
     $element = $this->xpath('//div[contains(@class, "view-display-id-block_sort")]//table//tr[1]/td[1]');
     $value = $element[0]->getText();
-    $this->assertEqual('1', trim($value));
+    $this->assertEquals('1', trim($value));
 
     // Override configure_sorts settings.
     $edit = [];
@@ -351,14 +351,14 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     $block = $this->storage->load('views_block__ctools_views_test_view_block_sort');
     $config = $block->getPlugin()->getConfiguration();
-    $this->assertEqual('DESC', $config['sort']['id'], "'configure_sorts' setting is properly saved.");
+    $this->assertEquals('DESC', $config['sort']['id'], "'configure_sorts' setting is properly saved.");
 
     // Assert configure_sorts overridden settings.
     // Check that the results are sorted DESC.
     $this->drupalGet('<front>');
     $element = $this->xpath('//div[contains(@class, "view-display-id-block_sort")]//table//tr[1]/td[1]');
     $value = $element[0]->getText();
-    $this->assertEqual('5', trim($value));
+    $this->assertEquals('5', trim($value));
   }
 
 }
