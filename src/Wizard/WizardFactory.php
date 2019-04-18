@@ -5,7 +5,7 @@ namespace Drupal\ctools\Wizard;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormState;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Drupal\Core\Render\Renderer;
+use Drupal\Core\Render\RendererInterface;
 
 class WizardFactory implements WizardFactoryInterface {
 
@@ -26,7 +26,7 @@ class WizardFactory implements WizardFactoryInterface {
   /**
    * The object renderer.
    *
-   * @var \Drupal\Core\Render\Renderer
+   * @var \Drupal\Core\Render\RendererInterface
    */
   protected $renderer;
 
@@ -37,10 +37,10 @@ class WizardFactory implements WizardFactoryInterface {
    *   The form builder.
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
    *   The event dispatcher.
-   * @param \Drupal\Core\Render\Renderer $renderer
+   * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The object renderer.
    */
-  public function __construct(FormBuilderInterface $form_builder, EventDispatcherInterface $event_dispatcher, Renderer $renderer) {
+  public function __construct(FormBuilderInterface $form_builder, EventDispatcherInterface $event_dispatcher, RendererInterface $renderer) {
     $this->builder = $form_builder;
     $this->dispatcher = $event_dispatcher;
     $this->renderer = $renderer;
