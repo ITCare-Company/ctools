@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ctools_views\Tests;
+namespace Drupal\Tests\ctools_views\Functional;
 
 use Drupal\Tests\views_ui\Functional\UITestBase;
 use Drupal\views\Tests\ViewTestData;
@@ -155,8 +155,8 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     // Assert pager default settings.
     $this->drupalGet('<front>');
-    $this->assertText('Page 1');
-    $this->assertText('Next ›');
+    $this->assertSession()->pageTextContains('Page 1');
+    $this->assertSession()->pageTextContains('Next ›');
 
     // Override pager settings to 'some'.
     $edit = [];
@@ -315,8 +315,8 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     // Assert disable_filters overridden settings.
     $this->drupalGet('<front>');
-    $this->assertNoFieldByXPath('//select[@name="status"]');
-    $this->assertNoFieldByXPath('//input[@name="job"]');
+    $this->assertSession()->fieldNotExists('status');
+    $this->assertSession()->fieldNotExists('job');
   }
 
   /**
