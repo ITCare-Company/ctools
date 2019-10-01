@@ -2,15 +2,74 @@
 
 namespace Drupal\ctools_views\Plugin\Display;
 
+use Drupal\Core\Block\BlockManagerInterface;
+use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\Block\ViewsBlock;
 use Drupal\views\Plugin\views\display\Block as CoreBlock;
+use Drupal\views\Plugin\ViewsHandlerManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Provides a Block display plugin that allows for greater control over Views
  * block settings.
  */
 class Block extends CoreBlock {
+
+  /**
+   * The views filter plugin manager.
+   *
+   * @var \Drupal\views\Plugin\ViewsHandlerManager
+   */
+  protected $filterManager;
+
+  /**
+   * The current request.
+   *
+   * @var \Symfony\Component\HttpFoundation\Request
+   */
+  protected $request;
+
+  /**
+   * Constructs a new Block instance.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   *   The entity manager.
+   * @param \Drupal\Core\Block\BlockManagerInterface $block_manager
+   *   The block manager.
+   * @param \Drupal\views\Plugin\ViewsHandlerManager $filter_manager
+   *   The views filter plugin manager.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityManagerInterface $entity_manager, BlockManagerInterface $block_manager, ViewsHandlerManager $filter_manager, Request $request) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_manager, $block_manager);
+
+    $this->filterManager = $filter_manager;
+    $this->request = $request;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('entity.manager'),
+      $container->get('plugin.manager.block'),
+      $container->get('plugin.manager.views.filter'),
+      $container->get('request_stack')->getCurrentRequest()
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -385,7 +444,7 @@ class Block extends CoreBlock {
   }
 
   protected function getFilterOptionsValue(array $filter, array $config) {
-    $plugin_definition = \Drupal::service('plugin.manager.views.filter')->getDefinition($config['type']);
+    $plugin_definition = $this->filterManager->getDefinition($config['type']);
     if (is_subclass_of($plugin_definition['class'], '\Drupal\views\Plugin\views\filter\InOperator')) {
       return array_values($config['value']);
     }
@@ -415,7 +474,7 @@ class Block extends CoreBlock {
     /** @var \Drupal\views\ViewExecutable $view */
     $view = $element['#view'];
     if (!empty($view->exposed_widgets['#action']) && !$view->ajaxEnabled()) {
-      $view->exposed_widgets['#action'] = \Drupal::request()->getRequestUri();
+      $view->exposed_widgets['#action'] = $this->request->getRequestUri();
     }
     return parent::elementPreRender($element);
   }
