@@ -7,6 +7,9 @@ use Drupal\Core\Form\FormState;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Drupal\Core\Render\RendererInterface;
 
+/**
+ * The wizard factory.
+ */
 class WizardFactory implements WizardFactoryInterface {
 
   /**
@@ -68,12 +71,15 @@ class WizardFactory implements WizardFactoryInterface {
   }
 
   /**
+   * Create form wizard.
+   *
    * @param string $class
    *   A class name implementing FormWizardInterface.
    * @param array $parameters
    *   The array of parameters specific to this wizard.
    *
    * @return \Drupal\ctools\Wizard\FormWizardInterface
+   *   Return form Wizard.
    */
   public function createWizard($class, array $parameters) {
     $arguments = [];
@@ -100,8 +106,10 @@ class WizardFactory implements WizardFactoryInterface {
    * @param array $parameters
    *   The array of parameters specific to this wizard.
    * @param bool $ajax
+   *   Is ajax or not.
    *
    * @return \Drupal\Core\Form\FormState
+   *   Return the form state.
    */
   public function getFormState(FormWizardInterface $wizard, array $parameters, $ajax = FALSE) {
     $form_state = new FormState();

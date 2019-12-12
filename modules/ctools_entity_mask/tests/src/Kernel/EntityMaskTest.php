@@ -202,6 +202,11 @@ class EntityMaskTest extends KernelTestBase {
   public function testDelete() {
     $block = BlockContent::create(['type' => 'basic']);
     $block->save();
+
+    // Check we created a saved block.
+    $id = $block->id();
+    $this->assertNotEmpty($id);
+
     $block->delete();
   }
 

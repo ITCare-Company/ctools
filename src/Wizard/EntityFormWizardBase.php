@@ -98,7 +98,7 @@ abstract class EntityFormWizardBase extends FormWizardBase implements EntityForm
     $status = $entity->save();
 
     $arguments = [
-      '@entity-type' => $entity->getEntityType()->getLowercaseLabel(),
+      '@entity-type' => $entity->getEntityType()->getSingularLabel(),
       '%label' => $entity->label(),
     ];
     if ($status === SAVED_UPDATED) {
