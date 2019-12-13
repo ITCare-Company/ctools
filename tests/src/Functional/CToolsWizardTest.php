@@ -16,6 +16,11 @@ class CToolsWizardTest extends BrowserTestBase {
   public static $modules = ['ctools', 'ctools_wizard_test'];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Test wizard Multistep form.
    */
   public function testWizardSteps() {

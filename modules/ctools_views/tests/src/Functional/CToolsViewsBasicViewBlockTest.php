@@ -40,6 +40,11 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'classy';
+
+  /**
+   * {@inheritdoc}
+   */
   protected function setUp($import_test_views = TRUE) {
     parent::setUp($import_test_views);
 
@@ -55,7 +60,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     // Get the "Configure block" form for our Views block.
     $this->drupalGet('admin/structure/block/add/views_block:ctools_views_test_view-block_pager/' . $default_theme);
-    $this->assertTrue($this->xpath('//input[@type="number" and @name="settings[override][items_per_page]"]'), 'items_per_page setting is a number field');
+    $this->assertNotEmpty($this->xpath('//input[@type="number" and @name="settings[override][items_per_page]"]'), 'items_per_page setting is a number field');
     // Add block to sidebar_first region with default settings.
     $edit = [];
     $edit['region'] = 'sidebar_first';
@@ -100,7 +105,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
 
     // Get the "Configure block" form for our Views block.
     $this->drupalGet('admin/structure/block/add/views_block:ctools_views_test_view-block_pager/' . $default_theme);
-    $this->assertTrue($this->xpath('//input[@type="number" and @name="settings[override][pager_offset]"]'), 'items_per_page setting is a number field');
+    $this->assertNotEmpty($this->xpath('//input[@type="number" and @name="settings[override][pager_offset]"]'), 'items_per_page setting is a number field');
     // Add block to sidebar_first region with default settings.
     $edit = [];
     $edit['region'] = 'sidebar_first';

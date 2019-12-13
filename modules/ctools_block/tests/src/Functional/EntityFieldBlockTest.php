@@ -17,6 +17,11 @@ class EntityFieldBlockTest extends BrowserTestBase {
   public static $modules = ['block', 'ctools_block', 'ctools_block_field_test'];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests using the node body field in a block.
    */
   public function testBodyField() {
