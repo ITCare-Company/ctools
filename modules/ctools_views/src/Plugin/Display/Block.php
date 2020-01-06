@@ -3,7 +3,7 @@
 namespace Drupal\ctools_views\Plugin\Display;
 
 use Drupal\Core\Block\BlockManagerInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\Block\ViewsBlock;
 use Drupal\views\Plugin\views\display\Block as CoreBlock;
@@ -41,7 +41,7 @@ class Block extends CoreBlock {
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager.
    * @param \Drupal\Core\Block\BlockManagerInterface $block_manager
    *   The block manager.
@@ -50,8 +50,8 @@ class Block extends CoreBlock {
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   The current request.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityManagerInterface $entity_manager, BlockManagerInterface $block_manager, ViewsHandlerManager $filter_manager, Request $request) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_manager, $block_manager);
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, BlockManagerInterface $block_manager, ViewsHandlerManager $filter_manager, Request $request) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $block_manager);
 
     $this->filterManager = $filter_manager;
     $this->request = $request;
@@ -65,7 +65,7 @@ class Block extends CoreBlock {
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('entity.manager'),
+      $container->get('entity_type.manager'),
       $container->get('plugin.manager.block'),
       $container->get('plugin.manager.views.filter'),
       $container->get('request_stack')->getCurrentRequest()
