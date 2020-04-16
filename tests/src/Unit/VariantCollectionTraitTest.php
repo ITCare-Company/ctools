@@ -144,13 +144,12 @@ class VariantCollectionTraitTest extends UnitTestCase {
    * @covers ::getVariant
    *
    * @depends testRemoveVariant
-   *
-   * @expectedException \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @expectedExceptionMessage Plugin ID 'test-uuid' was not found.
    */
   public function testGetVariantException($data) {
     list($trait_object, $uuid) = $data;
     // Attempt to retrieve a variant that has been removed.
+    $this->expectException('\Drupal\Component\Plugin\Exception\PluginNotFoundException');
+    $this->expectExceptionMessage("Plugin ID 'test-uuid' was not found.");
     $this->assertNull($trait_object->getVariant($uuid));
   }
 

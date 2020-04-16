@@ -1,8 +1,6 @@
 name: 'Chaos Tools blocks test'
 type: module
 description: 'Support module for Chaos tools blocks tests.'
-core: 8.x
-core_version_requirement: ^8 || ^9
 package: Testing
 version: 8.0.1
 dependencies:
