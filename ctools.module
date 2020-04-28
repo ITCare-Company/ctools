@@ -1,7 +1,21 @@
 <?php
 
 /**
+ * @file
+ * Provides utility and helper APIs for Drupal developers and site builders.
+ */
+
+use Drupal\Core\Url;
+
+/**
  * Implements hook_theme().
+ *
+ * @param $existing
+ * @param $type
+ * @param $theme
+ * @param $path
+ *
+ * @return \array[][]
  */
 function ctools_theme($existing, $type, $theme, $path) {
   return [
@@ -26,6 +40,11 @@ function ctools_theme($existing, $type, $theme, $path) {
   ];
 }
 
+/**
+ * Template Preprocess for Wizard Trail.
+ *
+ * @param $variables
+ */
 function template_preprocess_ctools_wizard_trail(&$variables) {
   /** @var $wizard \Drupal\ctools\Wizard\FormWizardInterface|\Drupal\ctools\Wizard\EntityFormWizardInterface */
   $wizard = $variables['wizard'];
@@ -38,6 +57,11 @@ function template_preprocess_ctools_wizard_trail(&$variables) {
   $variables['trail'] = $trail;
 }
 
+/**
+ * Template Preprocess for Trail links.
+ *
+ * @param $variables
+ */
 function template_preprocess_ctools_wizard_trail_links(&$variables) {
   /** @var $wizard \Drupal\ctools\Wizard\FormWizardInterface|\Drupal\ctools\Wizard\EntityFormWizardInterface */
   $wizard = $variables['wizard'];
@@ -50,12 +74,17 @@ function template_preprocess_ctools_wizard_trail_links(&$variables) {
     $parameters['step'] = $step;
     $trail[$step] = [
       'title' => !empty($operation['title']) ? $operation['title'] : '',
-      'url' => new \Drupal\Core\Url($wizard->getRouteName(), $parameters),
+      'url' => new Url($wizard->getRouteName(), $parameters),
     ];
   }
   $variables['trail'] = $trail;
 }
 
+/**
+ * Implements Hook Info alter.
+ *
+ * @param $definitions
+ */
 function ctools_condition_info_alter(&$definitions) {
   // If the node_type's class is unaltered, use a custom ctools implementation.
   if (isset($definitions['node_type']) && $definitions['node_type']['class'] == 'Drupal\node\Plugin\Condition\NodeType') {

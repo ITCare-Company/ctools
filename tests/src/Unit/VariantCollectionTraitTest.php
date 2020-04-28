@@ -9,7 +9,6 @@ use Drupal\Core\Display\VariantInterface;
 use Drupal\ctools\Plugin\VariantCollectionTrait;
 use Drupal\ctools\Plugin\VariantPluginCollection;
 use Drupal\Tests\UnitTestCase;
-use Prophecy\Argument;
 
 /**
  * Tests the methods of a variant-aware class.

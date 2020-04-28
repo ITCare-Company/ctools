@@ -7,6 +7,8 @@ use Drupal\file\Entity\File;
 use Drupal\Tests\BrowserTestBase;
 
 /**
+ * Class DisplayTest.
+ *
  * @group ctools_entity_mask
  */
 class DisplayTest extends BrowserTestBase {
