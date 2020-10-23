@@ -109,6 +109,7 @@ class EntityView extends BlockBase implements ContextAwarePluginInterface, Conta
     $build = $view_builder->view($entity, $this->configuration['view_mode']);
 
     CacheableMetadata::createFromObject($this->getContext('entity'))
+      ->merge(CacheableMetadata::createFromRenderArray($build))
       ->applyTo($build);
 
     return $build;
