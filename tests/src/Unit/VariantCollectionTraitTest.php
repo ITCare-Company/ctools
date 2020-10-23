@@ -27,7 +27,7 @@ class VariantCollectionTraitTest extends UnitTestCase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $container = new ContainerBuilder();
     $this->manager = $this->prophesize(PluginManagerInterface::class);
@@ -74,7 +74,7 @@ class VariantCollectionTraitTest extends UnitTestCase {
    * @depends testGetVariants
    */
   public function testGetVariantsSort(VariantPluginCollection $variants) {
-    $this->assertSame(['bar' => 'bar', 'foo' => 'foo'], $variants->getInstanceIds());
+    $this->assertArrayEquals(['bar' => 'bar', 'foo' => 'foo'], $variants->getInstanceIds());
   }
 
   /**
