@@ -74,7 +74,7 @@ class VariantCollectionTraitTest extends UnitTestCase {
    * @depends testGetVariants
    */
   public function testGetVariantsSort(VariantPluginCollection $variants) {
-    $this->assertArrayEquals(['bar' => 'bar', 'foo' => 'foo'], $variants->getInstanceIds());
+    $this->assertEquals(['bar' => 'bar', 'foo' => 'foo'], $variants->getInstanceIds());
   }
 
   /**
