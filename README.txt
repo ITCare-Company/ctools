@@ -10,14 +10,14 @@ CONTENTS OF THIS FILE
 INTRODUCTION
 ------------
 
-The Chaos tool suite (ctools) module is primarily a set of APIs and tools to
+The Chaos Tool Suite (ctools) module is primarily a set of APIs and tools to
 improve the developer experience. It also contains a module called the Page
 Manager whose job is to manage pages. In particular it manages panel pages, but
 as it grows it will be able to manage far more than just Panels.
 
 The Chaos Tool Suite (ctools) is a series of tools that makes code readily
 available for developers and creates libraries for other modules to use. Modules
-that use ctools include Views and Panels.
+that use ctools include Panels and Pathauto.
 
 End users will use ctools as underlying user interface libraries when operating
 Views and Panels modules and will not need to explore further (ctools is geared
@@ -63,7 +63,7 @@ RECOMMENDED MODULES
 -------------------
 
 The Advanced help module provides extended documentation. Once enabled,
-navigate to Administration > Advanced Help and select the Chaos tools link to
+navigate to Administration > Advanced Help and select the Chaos Tools link to
 view documentation.
 
  * Advanced help - https://www.drupal.org/project/advanced_help
@@ -72,7 +72,7 @@ view documentation.
 INSTALLATION
 ------------
 
- * Install the Chaos tool suite module as you would normally install a
+ * Install the Chaos Tool Suite module as you would normally install a
    contributed Drupal module. Visit
    https://www.drupal.org/docs/8/extending-drupal-8/installing-drupal-8-modules
    for further information.
