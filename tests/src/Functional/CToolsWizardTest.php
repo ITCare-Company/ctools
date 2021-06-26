@@ -13,7 +13,7 @@ use Drupal\Tests\BrowserTestBase;
 class CToolsWizardTest extends BrowserTestBase {
 
   use StringTranslationTrait;
-  public static $modules = ['ctools', 'ctools_wizard_test'];
+  protected static $modules = ['ctools', 'ctools_wizard_test'];
 
   /**
    * {@inheritdoc}

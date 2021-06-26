@@ -21,7 +21,7 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
    *
    * @var array
    */
-  public static $modules = ['ctools_views', 'ctools_views_test_views'];
+  protected static $modules = ['ctools_views', 'ctools_views_test_views'];
 
   /**
    * Views used by this test.

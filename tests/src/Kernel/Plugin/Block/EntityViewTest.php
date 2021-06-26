@@ -23,7 +23,7 @@ class EntityViewTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'block',
     'ctools',
     'filter',
