@@ -115,7 +115,8 @@ function ctools_help($route_name, RouteMatchInterface $route_match) {
       $output .= '<li>' . t('Modal dialog -- tool to make it simple to put a form in a modal dialog.') . '</li>';
       $output .= '<li>' . t('Dependent -- a simple form widget to make form items appear and disappear based upon the selections in another item.') . '</li>';
       $output .= '<li>' . t('Content -- pluggable content types used as panes in Panels and other modules like Dashboard.') . '</li>';
-      $output .= '<li>' . t('Form wizard -- an API to make multi-step forms much easier.') . '</li>';+      $output .= '<li>' . t('CSS tools -- tools to cache and sanitize CSS easily to make user-input CSS safe.') . '</li>';
+      $output .= '<li>' . t('Form wizard -- an API to make multi-step forms much easier.') . '</li>';
+      $output .= '<li>' . t('CSS tools -- tools to cache and sanitize CSS easily to make user-input CSS safe.') . '</li>';
       $output .= '</ul>';
     return $output;
   }
