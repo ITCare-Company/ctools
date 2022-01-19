@@ -21,7 +21,7 @@ class SerializableTempstoreTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->installSchema('system', ['key_value_expire']);
   }
