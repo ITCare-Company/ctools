@@ -1,5 +1,8 @@
 <?php
 
+use Drupal\Core\Entity\Plugin\Condition\EntityBundle as CoreEntityBundle;
+use Drupal\ctools\Plugin\Condition\EntityBundle;
+
 /**
  * @file
  * Provides utility and helper APIs for Drupal developers and site builders.
@@ -91,6 +94,15 @@ function ctools_condition_info_alter(&$definitions) {
   if (isset($definitions['node_type']) && $definitions['node_type']['class'] == 'Drupal\node\Plugin\Condition\NodeType') {
     $definitions['node_type']['class'] = 'Drupal\ctools\Plugin\Condition\NodeType';
   }
+
+  // Replace all generic entity bundle conditions classes if they are unaltered,
+  // these exist in Drupal 9.3+.
+  foreach ($definitions as $id => $definition) {
+    if (strpos($id, 'entity_bundle:') === 0 && $definition['class'] == CoreEntityBundle::class) {
+      $definitions[$id]['class'] = EntityBundle::class;
+    }
+  }
+
 }
 
 
