@@ -2,14 +2,10 @@
 
 namespace Drupal\ctools_views\Plugin\Display;
 
-use Drupal\Core\Block\BlockManagerInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\Block\ViewsBlock;
 use Drupal\views\Plugin\views\display\Block as CoreBlock;
-use Drupal\views\Plugin\ViewsHandlerManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Provides a Block display plugin.
@@ -33,43 +29,17 @@ class Block extends CoreBlock {
   protected $request;
 
   /**
-   * Constructs a new Block instance.
-   *
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity manager.
-   * @param \Drupal\Core\Block\BlockManagerInterface $block_manager
-   *   The block manager.
-   * @param \Drupal\views\Plugin\ViewsHandlerManager $filter_manager
-   *   The views filter plugin manager.
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The current request.
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, BlockManagerInterface $block_manager, ViewsHandlerManager $filter_manager, Request $request) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $block_manager);
-
-    $this->filterManager = $filter_manager;
-    $this->request = $request;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('entity_type.manager'),
-      $container->get('plugin.manager.block'),
-      $container->get('plugin.manager.views.filter'),
-      $container->get('request_stack')->getCurrentRequest()
-    );
+    /**
+     * @var \Drupal\ctools_views\Plugin\Display\Block
+     */
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->filterManager = $container->get('plugin.manager.views.filter');
+    $instance->request = $container->get('request_stack')->getCurrentRequest();
+
+    return $instance;
   }
 
   /**
