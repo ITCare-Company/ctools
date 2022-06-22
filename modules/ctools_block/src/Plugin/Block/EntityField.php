@@ -316,7 +316,12 @@ class EntityField extends BlockBase implements ContextAwarePluginInterface, Cont
    */
   protected function getFieldStorageDefinition() {
     if (empty($this->fieldStorageDefinition)) {
-      $field_definitions = $this->entityFieldManager->getFieldStorageDefinitions($this->entityTypeId);
+      // Some base fields have no storage.
+      $field_definitions = array_merge(
+        $this->entityFieldManager->getBaseFieldDefinitions($this->entityTypeId),
+        $this->entityFieldManager->getFieldStorageDefinitions($this->entityTypeId)
+      );
+
       $this->fieldStorageDefinition = $field_definitions[$this->fieldName];
     }
     return $this->fieldStorageDefinition;
