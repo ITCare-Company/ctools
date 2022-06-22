@@ -364,6 +364,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
     $after = array_slice($operations, array_search($step, $steps) + 1);
 
     $actions = [
+      '#type' => 'actions',
       'submit' => [
         '#type' => 'submit',
         '#value' => $this->t('Next'),
