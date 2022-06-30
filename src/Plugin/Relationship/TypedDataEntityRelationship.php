@@ -2,7 +2,6 @@
 
 namespace Drupal\ctools\Plugin\Relationship;
 
-use Drupal\Core\Annotation\ContextDefinition;
 use Drupal\Core\Plugin\Context\Context;
 use Drupal\Core\Plugin\Context\EntityContextDefinition;
 

@@ -45,7 +45,6 @@ abstract class EntityFormWizardBase extends FormWizardBase implements EntityForm
    * @param null $step
    *   The current active step of the wizard.
    */
-
   public function __construct(PrivateTempStoreFactory $tempstore, FormBuilderInterface $builder, ClassResolverInterface $class_resolver, EventDispatcherInterface $event_dispatcher, RouteMatchInterface $route_match, RendererInterface $renderer, $tempstore_id, EntityTypeManagerInterface $entity_type_manager, $machine_name = NULL, $step = NULL) {
     $this->entityTypeManager = $entity_type_manager;
     parent::__construct($tempstore, $builder, $class_resolver, $event_dispatcher, $route_match, $renderer, $tempstore_id, $machine_name, $step);

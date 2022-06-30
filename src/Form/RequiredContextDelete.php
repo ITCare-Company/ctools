@@ -101,7 +101,7 @@ abstract class RequiredContextDelete extends ConfirmFormBase {
     unset($contexts[$this->id]);
     $cached_values = $this->setContexts($cached_values, $contexts);
     $this->tempstore->get($this->tempstore_id)->set($this->machine_name, $cached_values);
-    list($route_name, $route_parameters) = $this->getParentRouteInfo($cached_values);
+    [$route_name, $route_parameters] = $this->getParentRouteInfo($cached_values);
     $form_state->setRedirect($route_name, $route_parameters);
   }
 
@@ -153,7 +153,7 @@ abstract class RequiredContextDelete extends ConfirmFormBase {
    */
   public function getCancelUrl() {
     $cached_values = $this->tempstore->get($this->tempstore_id)->get($this->machine_name);
-    list($route_name, $route_parameters) = $this->getParentRouteInfo($cached_values);
+    [$route_name, $route_parameters] = $this->getParentRouteInfo($cached_values);
     return new Url($route_name, $route_parameters);
   }
 
