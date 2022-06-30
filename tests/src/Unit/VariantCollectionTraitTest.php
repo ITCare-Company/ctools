@@ -155,7 +155,9 @@ class VariantCollectionTraitTest extends UnitTestCase {
   }
 
 }
-
+/**
+ *
+ */
 class TestVariantCollectionTrait {
   use VariantCollectionTrait;
 

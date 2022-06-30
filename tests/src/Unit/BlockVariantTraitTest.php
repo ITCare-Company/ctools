@@ -37,7 +37,9 @@ class BlockVariantTraitTest extends UnitTestCase {
     $this->assertSame($expected, $display_variant->getRegionAssignments());
   }
 
-  
+  /**
+   *
+   */
   public function providerTestGetRegionAssignments() {
     return [
       [
@@ -78,7 +80,9 @@ class BlockVariantTraitTest extends UnitTestCase {
   }
 
 }
-
+/**
+ *
+ */
 class TestBlockVariantTrait {
   use BlockVariantTrait;
 
