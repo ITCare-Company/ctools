@@ -9,7 +9,6 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\ctools\ConstraintConditionInterface;
-use \Drupal\Core\Entity\Plugin\Condition\EntityBundle as CoreEntityBundle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

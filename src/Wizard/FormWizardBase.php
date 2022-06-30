@@ -91,9 +91,9 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
    *   The event dispatcher.
    * @param $tempstore_id
    *   The private temp store factory collection name.
-   * @param null $machine_name
+   * @param string $machine_name
    *   The PrivateTempStore key for our current wizard values.
-   * @param null $step
+   * @param string $step
    *   The current active step of the wizard.
    */
   public function __construct(PrivateTempStoreFactory $tempstore, FormBuilderInterface $builder, ClassResolverInterface $class_resolver, EventDispatcherInterface $event_dispatcher, RouteMatchInterface $route_match, RendererInterface $renderer, $tempstore_id, $machine_name = NULL, $step = NULL) {
@@ -244,7 +244,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
       $cached_values = $this->getTempstore()->get($this->getMachineName());
     }
     $operation = $this->getOperation($cached_values);
-    /* @var $operation \Drupal\Core\Form\FormInterface */
+    /** @var \Drupal\Core\Form\FormInterface $operation */
     $operation = $this->classResolver->getInstanceFromDefinition($operation['form']);
     return $operation->getFormId();
   }
@@ -257,7 +257,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
     // Get the current form operation.
     $operation = $this->getOperation($cached_values);
     $form = $this->customizeForm($form, $form_state);
-    /* @var $formClass \Drupal\Core\Form\FormInterface */
+    /** @var \Drupal\Core\Form\FormInterface $formClass */
     $formClass = $this->classResolver->getInstanceFromDefinition($operation['form']);
     // Pass include any custom values for this operation.
     if (!empty($operation['values'])) {
@@ -448,7 +448,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
     return $actions;
   }
 
-
+  
   public function ajaxSubmit(array $form, FormStateInterface $form_state) {
     $cached_values = $form_state->getTemporaryValue('wizard');
     $response = new AjaxResponse();
@@ -457,7 +457,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
     return $response;
   }
 
-
+  
   public function ajaxPrevious(array $form, FormStateInterface $form_state) {
     $cached_values = $form_state->getTemporaryValue('wizard');
     $response = new AjaxResponse();
@@ -466,14 +466,14 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
     return $response;
   }
 
-
+  
   public function ajaxFinish(array $form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
     $response->addCommand(new CloseModalDialogCommand());
     return $response;
   }
 
-
+  
   public function getRouteName() {
     return $this->routeMatch->getRouteName();
   }

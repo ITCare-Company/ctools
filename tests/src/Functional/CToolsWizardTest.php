@@ -135,7 +135,7 @@ class CToolsWizardTest extends BrowserTestBase {
     // Change the value for 'one'.
     $this->submitForm(['one' => 'New value'], $this->t('Next'));
     $this->assertSession()->fieldValueEquals('two', 'The second bit');
-    $this->submitForm( [], $this->t('Next'));
+    $this->submitForm([], $this->t('Next'));
     // Make sure we get the additional step because the entity exists.
     $this->assertSession()->pageTextContains('This step only shows if the entity is already existing!');
     $this->submitForm([], $this->t('Finish'));
