@@ -11,10 +11,10 @@ use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\Core\Url;
 use Drupal\ctools\Ajax\OpenModalWizardCommand;
 use Drupal\ctools\Event\WizardEvent;
-use Drupal\Core\TempStore\SharedTempStoreFactory;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -26,7 +26,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
   /**
    * Tempstore Factory for keeping track of values in each step of the wizard.
    *
-   * @var \Drupal\Core\TempStore\SharedTempStoreFactory
+   * @var \Drupal\Core\TempStore\PrivateTempStoreFactory
    */
   protected $tempstore;
 
@@ -52,14 +52,14 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
   protected $dispatcher;
 
   /**
-   * The shared temp store factory collection name.
+   * The private temp store factory collection name.
    *
    * @var string
    */
   protected $tempstore_id;
 
   /**
-   * The SharedTempStore key for our current wizard values.
+   * The PrivateTempStore key for our current wizard values.
    *
    * @var string|null
    */
@@ -80,7 +80,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
   protected $renderer;
 
   /**
-   * @param \Drupal\Core\TempStore\SharedTempStoreFactory $tempstore
+   * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $tempstore
    *   Tempstore Factory for keeping track of values in each step of the
    *   wizard.
    * @param \Drupal\Core\Form\FormBuilderInterface $builder
@@ -90,13 +90,13 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
    *   The event dispatcher.
    * @param $tempstore_id
-   *   The shared temp store factory collection name.
+   *   The private temp store factory collection name.
    * @param null $machine_name
-   *   The SharedTempStore key for our current wizard values.
+   *   The PrivateTempStore key for our current wizard values.
    * @param null $step
    *   The current active step of the wizard.
    */
-  public function __construct(SharedTempStoreFactory $tempstore, FormBuilderInterface $builder, ClassResolverInterface $class_resolver, EventDispatcherInterface $event_dispatcher, RouteMatchInterface $route_match, RendererInterface $renderer, $tempstore_id, $machine_name = NULL, $step = NULL) {
+  public function __construct(PrivateTempStoreFactory $tempstore, FormBuilderInterface $builder, ClassResolverInterface $class_resolver, EventDispatcherInterface $event_dispatcher, RouteMatchInterface $route_match, RendererInterface $renderer, $tempstore_id, $machine_name = NULL, $step = NULL) {
     $this->tempstore = $tempstore;
     $this->builder = $builder;
     $this->classResolver = $class_resolver;
@@ -113,7 +113,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
    */
   public static function getParameters() {
     return [
-      'tempstore' => \Drupal::service('tempstore.shared'),
+      'tempstore' => \Drupal::service('tempstore.private'),
       'builder' => \Drupal::service('form_builder'),
       'class_resolver' => \Drupal::service('class_resolver'),
       'event_dispatcher' => \Drupal::service('event_dispatcher'),
