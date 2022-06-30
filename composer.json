@@ -41,7 +41,9 @@
     "issues": "https://www.drupal.org/project/issues/ctools",
     "source": "https://git.drupalcode.org/project/ctools"
   },
-  "require": {
-    "drupal/core": "^9 || ^10"
+  "extra": {
+    "branch-alias": {
+      "dev-4.x": "4.x-dev"
+    }
   }
 }
