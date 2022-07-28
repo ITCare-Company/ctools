@@ -89,8 +89,8 @@ class EntityFieldBlockTest extends BrowserTestBase {
       $url = $this->container->get('file_url_generator')->transformRelative($url);
     }
     else {
-      $url = file_create_url($url); // @phpstan-ignore-line
-      $url = file_url_transform_relative($url); // @phpstan-ignore-line
+      $url = \Drupal::service('file_url_generator')->generateAbsoluteString($url); // @phpstan-ignore-line
+      $url = \Drupal::service('file_url_generator')->transformRelative($url); // @phpstan-ignore-line
     }
     $this->assertSession()->responseContains('src="' . $url . '"');
   }

@@ -115,8 +115,8 @@ class DisplayTest extends BrowserTestBase {
       $image_url = $this->container->get('file_url_generator')->transformRelative($image_url);
     }
     else {
-      $image_url = file_create_url($image_url); // @phpstan-ignore-line
-      $image_url = file_url_transform_relative($image_url); // @phpstan-ignore-line
+      $image_url = \Drupal::service('file_url_generator')->generateAbsoluteString($image_url); // @phpstan-ignore-line
+      $image_url = \Drupal::service('file_url_generator')->transformRelative($image_url); // @phpstan-ignore-line
     }
     // @todo Use assertStringContainsString() when we rely exclusively on
     // PHPUnit 8.
