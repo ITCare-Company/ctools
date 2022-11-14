@@ -430,6 +430,20 @@ class Block extends CoreBlock {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function usesExposed() {
+    $filters = $this->getHandlers('filter');
+    foreach ($filters as $filter) {
+      if ($filter->isExposed() && !empty($filter->exposedInfo())) {
+        return TRUE;
+      }
+    }
+
+    return parent::usesExposed();
+  }
+
+  /**
    * Exposed widgets.
    *
    * Exposed widgets typically only work with ajax in Drupal core, however
