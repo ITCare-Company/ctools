@@ -94,7 +94,6 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
    * @param null $machine_name
    *   The SharedTempStore key for our current wizard values.
    * @param null $step
->>>>>>> parent of f243a856 (Issue #2992362 by thalles, Daniel Korte, sagannotcarl, baikho, osman, japerry, stevekeiretsu: Wizards should be using PrivateTempStore not SharedTempStore, otherwise all users end up sharing the same cached form values)
    *   The current active step of the wizard.
    */
   public function __construct(SharedTempStoreFactory $tempstore, FormBuilderInterface $builder, ClassResolverInterface $class_resolver, EventDispatcherInterface $event_dispatcher, RouteMatchInterface $route_match, RendererInterface $renderer, $tempstore_id, $machine_name = NULL, $step = NULL) {
