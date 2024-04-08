@@ -137,10 +137,13 @@ class EntityField extends BlockBase implements ContextAwarePluginInterface, Cont
     /** @var \Drupal\Core\Entity\FieldableEntityInterface $entity */
     $entity = $this->getContextValue('entity');
     $build = [];
-    /** @var \Drupal\Core\Field\FieldItemListInterface $field */
-    $field = $entity->{$this->fieldName};
-    $display_settings = $this->getConfiguration()['formatter'];
-    $build['field'] = $field->view($display_settings);
+
+    if ($entity->hasField($this->fieldName)) {
+      /** @var \Drupal\Core\Field\FieldItemListInterface $field */
+      $field = $entity->{$this->fieldName};
+      $display_settings = $this->getConfiguration()['formatter'];
+      $build['field'] = $field->view($display_settings);
+    }
 
     // Set the cache data appropriately.
     $build['#cache']['contexts'] = $this->getCacheContexts();
