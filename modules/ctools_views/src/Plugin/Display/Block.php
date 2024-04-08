@@ -660,7 +660,7 @@ class Block extends CoreBlock {
                 $exposed[$identifier] = $value['value']['value'];
               }
               else {
-                $exposed[$identifier] = $value['value'];
+                $exposed[$identifier] = $value['value'] ?? NULL;
               }
             }
 
@@ -674,7 +674,7 @@ class Block extends CoreBlock {
           }
 
           // If the filter is exposed, set a variable to pass that through.
-          if ($config['exposed'][$key]['exposed']) {
+          if (isset($config['exposed'][$key]['exposed']) && $config['exposed'][$key]['exposed']) {
             $handler->options['value_exposed_to_user'] = TRUE;
 
             // If the operator is exposed, set a variable to pass that through.
@@ -966,3 +966,4 @@ class Block extends CoreBlock {
   }
 
 }
+
