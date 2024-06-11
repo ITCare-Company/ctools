@@ -17,6 +17,15 @@ class CToolsViewsBasicViewBlockTest extends UITestBase {
   use StringTranslationTrait;
 
   /**
+   * Exempt from strict schema checking.
+   *
+   * @see \Drupal\Core\Config\Development\ConfigSchemaChecker
+   *
+   * @var bool
+   */
+  protected $strictConfigSchema = FALSE;
+
+  /**
    * Modules to enable.
    *
    * @var array
