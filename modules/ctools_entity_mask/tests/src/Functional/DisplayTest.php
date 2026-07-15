@@ -70,6 +70,7 @@ class DisplayTest extends BrowserTestBase {
     $image = File::create(['uri' => $image_uri]);
     $image->save();
 
+    // cspell:disable-next-line
     $body = 'Qui animated corpse, cricket bat max brucks terribilem incessu zomby.';
     $link = 'https://www.drupal.org/project/ctools';
 

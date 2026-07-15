@@ -16,7 +16,7 @@ use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Base class for condition configur operations.
+ * Base class for condition configure operations.
  */
 abstract class ConditionConfigure extends FormBase {
 

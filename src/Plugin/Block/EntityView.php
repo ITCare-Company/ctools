@@ -25,7 +25,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class EntityView extends BlockBase implements ContextAwarePluginInterface, ContainerFactoryPluginInterface {
 
-  static protected $recusion = [];
+  static protected $recursion = [];
 
   /**
    * The entity type manager.
@@ -105,14 +105,14 @@ class EntityView extends BlockBase implements ContextAwarePluginInterface, Conta
   }
 
   protected function accessRecursion(EntityInterface $entity, array $config) {
-    if (!isset(self::$recusion[$entity->uuid()][$config['view_mode']])) {
-      self::$recusion[$entity->uuid()][$config['view_mode']] = 0;
+    if (!isset(self::$recursion[$entity->uuid()][$config['view_mode']])) {
+      self::$recursion[$entity->uuid()][$config['view_mode']] = 0;
     }
-    return self::$recusion[$entity->uuid()][$config['view_mode']]++;
+    return self::$recursion[$entity->uuid()][$config['view_mode']]++;
   }
 
   protected function getAccessRecursion(EntityInterface $entity, array $config) {
-    return self::$recusion[$entity->uuid()][$config['view_mode']] ?? 0;
+    return self::$recursion[$entity->uuid()][$config['view_mode']] ?? 0;
   }
 
   /**

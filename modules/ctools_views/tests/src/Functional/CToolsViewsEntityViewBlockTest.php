@@ -258,7 +258,7 @@ class CToolsViewsEntityViewBlockTest extends UITestBase {
     $this->assertEquals(TRUE, $config['exposed']['filter-' . $filter_id]['exposed'], "'configure_filters' exposed is properly saved.");
     $this->assertEquals(FALSE, $config['exposed']['filter-' . $filter_id]['expose']['use_operator'], "'configure_filters' exposed is properly saved.");
 
-    // Assert overriden operator.
+    // Assert overridden operator.
     $this->drupalGet('<front>');
     $this->assertSession()->fieldExists($filter_id);
     $this->assertSession()->fieldNotExists($filter_op_id);

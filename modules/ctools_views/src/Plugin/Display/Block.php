@@ -307,7 +307,7 @@ class Block extends CoreBlock {
               if ($form_field_type == 'select') {
                 // Single-value select elements get their default value set to
                 // 'All' in buildExposedForm(), when that option is added, so set
-                // thir defaults manually.
+                // their defaults manually.
                 $form['exposed'][$filter_key][$id]['#default_value'] = $block_configuration['exposed'][$filter_key]['value'] ?? NULL;
               }
 

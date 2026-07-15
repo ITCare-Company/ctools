@@ -6,8 +6,9 @@
  */
 
 /**
- * Invalidate the service container to force EntityBundleConstriant is Removed.
+ * Invalidate the service container to force EntityBundleConstraint is Removed.
  */
+// cspell:disable-next-line
 function ctools_post_update_remove_entitybundleconstraint() {
   // Reload the service container.
   $kernel = \Drupal::service('kernel');

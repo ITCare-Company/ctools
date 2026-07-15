@@ -152,7 +152,7 @@ abstract class ManageResolverRelationships extends FormBase {
   }
 
   /**
-   * Get the accesssible relationships.
+   * Get the accessible relationships.
    *
    * @param mixed $cached_values
    *   The arbitrary value from temporary storage.

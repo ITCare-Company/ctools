@@ -96,7 +96,7 @@ abstract class RequiredContext extends FormBase {
         'event' => 'click',
       ],
       '#submit' => [
-        'callback' => [$this, 'submitform'],
+        'callback' => [$this, 'submitForm'],
       ],
     ];
     return $form;

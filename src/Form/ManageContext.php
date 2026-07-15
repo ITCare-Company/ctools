@@ -183,7 +183,7 @@ abstract class ManageContext extends FormBase {
    *   The form state.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
-   *   Form ajax repsonse.
+   *   Form ajax response.
    */
   public function addContext(array &$form, FormStateInterface $form_state) {
     $context = $form_state->getValue('context');
@@ -213,7 +213,7 @@ abstract class ManageContext extends FormBase {
    *   The form state.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
-   *   Form ajax repsonse.
+   *   Form ajax response.
    */
   public function addRelationship(array &$form, FormStateInterface $form_state) {
     $relationship = $form_state->getValue('relationships');

@@ -10,7 +10,7 @@ use Drupal\Core\TempStore\SharedTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Resolver Relatinoship Delete Form.
+ * Resolver Relationship Delete Form.
  */
 abstract class ResolverRelationshipDelete extends ConfirmFormBase {
 

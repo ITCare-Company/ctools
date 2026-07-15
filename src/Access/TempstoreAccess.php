@@ -30,7 +30,7 @@ class TempstoreAccess implements CoreAccessInterface {
   }
 
   /**
-   * Retreive the tempstore factory.
+   * Retrieve the tempstore factory.
    */
   protected function getTempstore() {
     return $this->tempstore;
