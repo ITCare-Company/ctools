@@ -40,13 +40,22 @@ abstract class RelationshipsTestBase extends KernelTestBase {
    * {@inheritdoc}
    */
   protected function setUp(): void {
+    // In Drupal 11.4+, body field storage for node was split into a separate
+    // submodule. Enable it if available (not present in Drupal 10).
+    $bodyFieldModulePath = $this->root . '/core/modules/node/modules/node_storage_body_field';
+    if (is_dir($bodyFieldModulePath)) {
+      static::$modules[] = 'node_storage_body_field';
+    }
     parent::setUp();
 
-    $this->installSchema('system', ['sequences']);
     $this->installEntitySchema('user');
     $this->installEntitySchema('node_type');
     $this->installEntitySchema('node');
-    $this->installConfig('node');
+    $nodeConfigModules = ['node'];
+    if (in_array('node_storage_body_field', static::$modules, TRUE)) {
+      $nodeConfigModules[] = 'node_storage_body_field';
+    }
+    $this->installConfig($nodeConfigModules);
     $page = $this->createEntity('node_type', [
       'type' => 'page',
       'name' => 'Page',

@@ -44,7 +44,6 @@ class EntityViewTest extends KernelTestBase {
     $this->installConfig(['filter']);
     $this->installEntitySchema('node');
     $this->installEntitySchema('user');
-    $this->installSchema('system', ['sequences']);
   }
 
   /**

@@ -35,7 +35,6 @@ class TypedDataResolverTest extends KernelTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->installSchema('system', 'sequences');
     $this->installEntitySchema('user');
 
     $this->typedDataResolver = \Drupal::service('ctools.typed_data.resolver');
