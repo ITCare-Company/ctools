@@ -5,7 +5,7 @@ namespace Drupal\ctools\Plugin\Deriver;
 use Drupal\Core\TypedData\DataDefinitionInterface;
 
 /**
- *
+ * Relationship deriver for typed data entities.
  */
 class TypedDataEntityRelationshipDeriver extends TypedDataRelationshipDeriver {
 

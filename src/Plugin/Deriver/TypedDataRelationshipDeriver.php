@@ -21,7 +21,8 @@ class TypedDataRelationshipDeriver extends TypedDataPropertyDeriverBase implemen
     $bundle_info = $base_definition->getConstraint('Bundle');
     $entity_type = $base_definition->getConstraint('EntityType');
 
-    // In Drupal 11.x+ the EntityType constraint is stored as ['type' => 'node'].
+    // In Drupal 11.x+ the EntityType constraint is stored as
+    // ['type' => 'node'].
     if (is_array($entity_type)) {
       $entity_type = $entity_type['type'] ?? reset($entity_type);
     }

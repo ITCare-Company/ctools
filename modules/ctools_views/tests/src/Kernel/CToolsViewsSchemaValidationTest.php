@@ -73,4 +73,3 @@ class CToolsViewsSchemaValidationTest extends KernelTestBase {
   }
 
 }
-

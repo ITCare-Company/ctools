@@ -127,7 +127,7 @@ class EntityMaskTest extends KernelTestBase {
   /**
    * Tests that mask entity types are not exposed to Field UI.
    */
-  public function testNotExposedToFieldUI() {
+  public function testNotExposedToFieldUi() {
     /** @var \Drupal\Core\Entity\EntityTypeInterface $entity_type */
     $entity_type = $this->container
       ->get('entity_type.manager')

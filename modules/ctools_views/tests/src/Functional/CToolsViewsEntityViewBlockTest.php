@@ -167,6 +167,7 @@ class CToolsViewsEntityViewBlockTest extends UITestBase {
     ])->save();
 
     ViewTestData::createTestViews(get_class($this), ['ctools_views_test_views']);
+    // @phpstan-ignore-next-line Storing is practical for many call sites.
     $this->storage = $this->container->get('entity_type.manager')->getStorage('block');
 
     foreach ($this->testNodes() as $values) {
