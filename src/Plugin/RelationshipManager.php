@@ -6,6 +6,7 @@ use Drupal\Core\Plugin\Context\ContextAwarePluginManagerTrait;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\ctools\Attribute\Relationship as RelationshipAttribute;
 
 /**
  * Provides the Relationship plugin manager.
@@ -26,7 +27,7 @@ class RelationshipManager extends DefaultPluginManager implements RelationshipMa
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/Relationship', $namespaces, $module_handler, 'Drupal\ctools\Plugin\RelationshipInterface', 'Drupal\ctools\Annotation\Relationship');
+    parent::__construct('Plugin/Relationship', $namespaces, $module_handler, 'Drupal\ctools\Plugin\RelationshipInterface', RelationshipAttribute::class, 'Drupal\ctools\Annotation\Relationship');
 
     $this->alterInfo('ctools_relationship_info');
     $this->setCacheBackend($cache_backend, 'ctools_relationship_plugins');
